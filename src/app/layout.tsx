@@ -1,8 +1,11 @@
+'use client'
 import React from 'react';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import clsx from 'clsx'
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 const font = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
 export default function RootLayout({
@@ -10,6 +13,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  console.log(pathname)
   return (
     <html lang="en">
       <body className={`${font.className} flex`}>
@@ -25,24 +30,22 @@ export default function RootLayout({
           <nav className="mt-20 grow pl-4">
             <ul>
               <li className="mb-7">
-                <Link href="/dashboard">
-                  <span className="flex gap-3.5 items-center text-zinc-50">
+                <Link href="/dashboard"  className={clsx("flex gap-3.5 items-center", 
+                pathname === '/dashboard' && 'after:h-6 after:ml-auto after:border-2 after:border-purple-200 after:rounded-sm')}>
                     <svg width="18" height="18">
                       <use xlinkHref="/image/icons.svg#squares" />
                     </svg>
-                    Dashboard
-                  </span>
+                    <span className='text-zinc-50 font-medium'>Dashboard</span>      
                 </Link>
               </li>
               <li>
-                <Link href="/companies">
-                  <span className="flex gap-3.5 items-center text-zinc-50">
-                    <svg width="18" height="18">
+                <Link href="/companies" className={clsx("flex gap-3.5 items-center", 
+                pathname === '/companies' && 'after:h-6 after:ml-auto after:border-2 after:border-purple-200 after:rounded-sm')}>
+                                     <svg width="18" height="18">
                       <use xlinkHref="/image/icons.svg#briefcase" />
                     </svg>
-                    Companies
-                  </span>
-                </Link>
+                    <span className='text-zinc-50 font-medium'>Companies</span>   
+                                 </Link>
               </li>
             </ul>
           </nav>
